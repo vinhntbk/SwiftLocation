@@ -80,15 +80,17 @@ internal extension CLLocationManager {
     /// Apply settings to location manager.
     /// - Parameter settings: settings.
     func setSettings(_ settings: LocationManagerSettings) {
-        self.desiredAccuracy = settings.accuracy.value
+        self.desiredAccuracy = settings.desiredAccuracy.value
         self.activityType = settings.activityType
         self.distanceFilter = settings.minDistance
                 
         // Location updates
         let hasContinousLocation = settings.activeServices.contains(.continousLocation)
         if hasContinousLocation {
+            showsBackgroundLocationIndicator = true
             startUpdatingLocation()
         } else {
+            showsBackgroundLocationIndicator = false
             stopUpdatingLocation()
         }
         
